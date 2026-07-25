@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>photos — linnsanity</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <main>
+    <h1>photos</h1>
+    <p>a collection of moments.</p>
+
+    <div class="gallery" id="gallery">
+      <!-- Add your photos here. Example:
+      <div class="gallery-item">
+        <img src="img/your-photo.jpg" alt="description">
+      </div>
+      -->
+    </div>
+
+    <div class="empty-state" id="empty-state">
+      <p>no photos yet — check back soon.</p>
+    </div>
+  </main>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox">
+    <img src="" alt="enlarged photo" id="lightbox-img">
+  </div>
+
+  <footer>
+    <p>&copy; 2026 linnsanity</p>
+  </footer>
+
+  <script src="js/nav.js"></script>
+  <script>
+    const gallery = document.getElementById('gallery');
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+    const emptyState = document.getElementById('empty-state');
+
+    // Hide empty state if there are photos
+    if (gallery.children.length > 0) {
+      emptyState.style.display = 'none';
+    }
+
+    // Lightbox open
+    gallery.addEventListener('click', (e) => {
+      const img = e.target.closest('.gallery-item img');
+      if (!img) return;
+      lightboxImg.src = img.src;
+      lightbox.classList.add('active');
+    });
+
+    // Lightbox close
+    lightbox.addEventListener('click', () => {
+      lightbox.classList.remove('active');
+      lightboxImg.src = '';
+    });
+
+    // Close on Escape
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        lightbox.classList.remove('active');
+        lightboxImg.src = '';
+      }
+    });
+  </script>
+</body>
+</html>

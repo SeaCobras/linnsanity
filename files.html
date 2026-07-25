@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>files — linnsanity</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <main>
+    <h1>files</h1>
+    <p>stuff you can download.</p>
+
+    <div class="file-list" id="file-list">
+      <!-- Add your files here. Example:
+      <div class="file-item">
+        <div class="file-info">
+          <span class="file-name">example.pdf</span>
+          <span class="file-desc">a cool document</span>
+        </div>
+        <a href="downloads/example.pdf" class="download-btn" download>download</a>
+      </div>
+      -->
+    </div>
+
+    <div class="empty-state" id="empty-state">
+      <p>no files yet — check back soon.</p>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 linnsanity</p>
+  </footer>
+
+  <script src="js/nav.js"></script>
+  <script>
+    const fileList = document.getElementById('file-list');
+    const emptyState = document.getElementById('empty-state');
+
+    if (fileList.children.length > 0) {
+      emptyState.style.display = 'none';
+    }
+  </script>
+</body>
+</html>

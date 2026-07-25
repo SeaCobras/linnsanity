@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>snake — linnsanity</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <main>
+    <h1>snake</h1>
+
+    <div class="game-container">
+      <div class="game-info">
+        <span>score: <span class="value" id="score">0</span></span>
+        <span>high score: <span class="value" id="high-score">0</span></span>
+      </div>
+      <div class="game-wrapper">
+        <canvas id="snake-canvas" width="400" height="400"></canvas>
+        <div class="game-overlay" id="game-overlay">
+          <h2 id="overlay-title">snake</h2>
+          <p id="overlay-text">press any arrow key or wasd to start</p>
+        </div>
+      </div>
+      <div class="game-controls">
+        <p>controls: arrow keys or wasd</p>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 linnsanity</p>
+  </footer>
+
+  <script src="js/nav.js"></script>
+  <script src="js/snake.js"></script>
+</body>
+</html>

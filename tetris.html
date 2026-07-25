@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>tetris — linnsanity</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <main>
+    <h1>tetris</h1>
+
+    <div class="game-container">
+      <div class="tetris-layout">
+        <div class="tetris-sidebar">
+          <div class="tetris-panel">
+            <div class="tetris-label">hold</div>
+            <canvas id="hold-canvas" width="80" height="80"></canvas>
+          </div>
+          <div class="tetris-panel">
+            <div class="tetris-label">score</div>
+            <div class="value" id="score">0</div>
+          </div>
+          <div class="tetris-panel">
+            <div class="tetris-label">best</div>
+            <div class="value" id="high-score">0</div>
+          </div>
+          <div class="tetris-panel">
+            <div class="tetris-label">level</div>
+            <div class="value" id="level">1</div>
+          </div>
+          <div class="tetris-panel">
+            <div class="tetris-label">lines</div>
+            <div class="value" id="lines">0</div>
+          </div>
+        </div>
+
+        <div class="game-wrapper">
+          <canvas id="tetris-canvas" width="300" height="600"></canvas>
+          <div class="game-overlay" id="game-overlay">
+            <h2 id="overlay-title">tetris</h2>
+            <p id="overlay-text">press any key to start</p>
+          </div>
+        </div>
+
+        <div class="tetris-sidebar">
+          <div class="tetris-panel">
+            <div class="tetris-label">next</div>
+            <canvas id="next-canvas" width="80" height="80"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <div class="game-controls">
+        <p>←/→ move &nbsp;·&nbsp; ↑ rotate &nbsp;·&nbsp; ↓ soft drop &nbsp;·&nbsp; space hard drop &nbsp;·&nbsp; c hold</p>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 linnsanity</p>
+  </footer>
+
+  <script src="js/nav.js"></script>
+  <script src="js/tetris.js"></script>
+</body>
+</html>
