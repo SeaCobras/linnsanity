@@ -1,0 +1,78 @@
+{
+  "generated": "2026-07-31T07:01:38.912Z",
+  "openings": [
+    {
+      "id": "italian",
+      "name": "Italian Game",
+      "playerColor": "white",
+      "setupSan": [
+        "e4",
+        "e5",
+        "Nf3",
+        "Nc6",
+        "Bc4"
+      ],
+      "nodeCount": 600,
+      "file": "italian.json"
+    },
+    {
+      "id": "london",
+      "name": "London System",
+      "playerColor": "white",
+      "setupSan": [
+        "d4"
+      ],
+      "nodeCount": 506,
+      "file": "london.json"
+    },
+    {
+      "id": "scotch-gambit",
+      "name": "Scotch Gambit",
+      "playerColor": "white",
+      "setupSan": [
+        "e4",
+        "e5",
+        "Nf3",
+        "Nc6",
+        "d4",
+        "exd4",
+        "Bc4"
+      ],
+      "nodeCount": 600,
+      "file": "scotch-gambit.json"
+    },
+    {
+      "id": "caro-kann",
+      "name": "Caro-Kann Defence",
+      "playerColor": "black",
+      "setupSan": [
+        "e4",
+        "c6"
+      ],
+      "nodeCount": 600,
+      "file": "caro-kann.json"
+    },
+    {
+      "id": "french",
+      "name": "French Defence",
+      "playerColor": "black",
+      "setupSan": [
+        "e4",
+        "e6"
+      ],
+      "nodeCount": 600,
+      "file": "french.json"
+    },
+    {
+      "id": "modern",
+      "name": "Modern Defence",
+      "playerColor": "black",
+      "setupSan": [
+        "e4",
+        "g6"
+      ],
+      "nodeCount": 600,
+      "file": "modern.json"
+    }
+  ]
+}

@@ -45,7 +45,8 @@
       "Bash(cp -r C:/Users/moop5/Desktop/code/Work/etl-geojson-tools/zone_collection_agent/src/llm C:/Users/moop5/Desktop/code/Work/etl-geojson-tools/zone_collection_agent/src/cache C:/Users/moop5/Desktop/code/Work/etl-geojson-tools/zone_collection_agent/src/exploration C:/Users/moop5/Desktop/code/Work/etl-geojson-tools/zone_collection_agent/src/utils C:/Users/moop5/Desktop/code/Work/etl-geojson-tools/zone_collection_agent/src/schemas C:/Users/moop5/Desktop/code/Work/etl-geojson-tools/etl-geo-agents/packages/core/src/)",
       "Bash(cp C:/Users/moop5/Desktop/code/Work/etl-geojson-tools/zone_collection_agent/tests/probe.test.ts C:/Users/moop5/Desktop/code/Work/etl-geojson-tools/zone_collection_agent/tests/arcgisResolve.test.ts C:/Users/moop5/Desktop/code/Work/etl-geojson-tools/zone_collection_agent/tests/scraper-hash.test.ts C:/Users/moop5/Desktop/code/Work/etl-geojson-tools/zone_collection_agent/tests/pdfVerify.test.ts C:/Users/moop5/Desktop/code/Work/etl-geojson-tools/etl-geo-agents/packages/core/tests/)",
       "Bash(npx vitest *)",
-      "Bash(docker exec *)"
+      "Bash(docker exec *)",
+      "mcp__visualize__show_widget"
     ]
   }
 }
