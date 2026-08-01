@@ -2,3 +2,5 @@
 .lichess-token
 .cache/
 .vercel
+CLAUDE.md
+.claude/

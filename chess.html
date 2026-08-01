@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>chess — linnsanity</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<main>
+  <h1>chess</h1>
+  <p>study famous openings, one branch at a time.</p>
+
+  <div id="picker-view">
+    <div class="chess-color-select">
+      <button class="chess-color-btn" data-color="white" type="button">play white</button>
+      <button class="chess-color-btn" data-color="black" type="button">play black</button>
+    </div>
+    <div class="chess-opening-list" id="opening-list" hidden></div>
+    <p id="picker-error" class="chess-status" hidden></p>
+  </div>
+
+  <div id="board-view" hidden>
+    <button class="chess-back-btn" id="back-btn" type="button">&larr; change opening</button>
+    <h2 id="opening-title"></h2>
+    <p id="chess-status" class="chess-status" aria-live="polite"></p>
+    <div class="chess-board-wrapper">
+      <div class="chess-board" id="chess-board"></div>
+    </div>
+    <div class="chess-controls">
+      <button class="chess-btn" id="reset-btn" type="button">restart this line</button>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <p>&copy; 2026 linnsanity</p>
+</footer>
+
+<script src="js/nav.js"></script>
+<script type="module" src="js/chess-trainer.js"></script>
+</body>
+</html>
