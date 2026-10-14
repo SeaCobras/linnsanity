@@ -16,12 +16,21 @@ export function initTrainer({ fetchImpl, ChessCtor, doc }) {
   const resetBtn = doc.getElementById('reset-btn');
   const boardEl = doc.getElementById('chess-board');
   const statusEl = doc.getElementById('chess-status');
+  const feedbackEl = doc.getElementById('chess-feedback');
+  const scoreEl = doc.getElementById('chess-score');
   const titleEl = doc.getElementById('opening-title');
 
   const FILES = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
   const WHITE_GLYPHS = { p: '♙', n: '♘', b: '♗', r: '♖', q: '♕', k: '♔' };
   const BLACK_GLYPHS = { p: '♟', n: '♞', b: '♝', r: '♜', q: '♛', k: '♚' };
   const BOT_MOVE_DELAY_MS = 450;
+
+  // Points by rank within a player node's move list. The generator caps
+  // player-turn alternatives at 4 (see build-openings.js DEFAULTS.playerBranches),
+  // so there are exactly four tiers, not five -- a move outside this list has
+  // no tree data at all, which is the same event as going off-book.
+  const RANK_POINTS = [100, 75, 50, 25];
+  const RANK_LABEL = ['the top book move', 'the 2nd most common move', 'the 3rd most common move', 'a playable but rare choice'];
 
   const state = {
     index: null,
@@ -33,6 +42,7 @@ export function initTrainer({ fetchImpl, ChessCtor, doc }) {
     draggedFrom: null,
     offBook: false,
     awaitingBot: false,
+    score: { totalPoints: 0, gradedMoves: 0 },
   };
 
   // ------------------------------------------------------------------
@@ -130,6 +140,10 @@ export function initTrainer({ fetchImpl, ChessCtor, doc }) {
     state.offBook = false;
     state.selectedSquare = null;
     state.awaitingBot = false;
+    state.score = { totalPoints: 0, gradedMoves: 0 };
+    feedbackEl.className = 'chess-feedback';
+    feedbackEl.textContent = '';
+    renderScore();
     renderBoard();
     advance();
   }
@@ -191,6 +205,9 @@ export function initTrainer({ fetchImpl, ChessCtor, doc }) {
         // would become interactive until some unrelated re-render happened.
         state.awaitingBot = false;
         applyUci(choice.uci);
+        const pct = Math.round((choice.weight != null ? choice.weight : choice.freq) * 100);
+        feedbackEl.className = 'chess-feedback feedback-bot';
+        feedbackEl.textContent = `bot played ${choice.san} — around ${pct}% of club games go this way here`;
         advance();
       }, BOT_MOVE_DELAY_MS);
       return;
@@ -219,15 +236,58 @@ export function initTrainer({ fetchImpl, ChessCtor, doc }) {
     const match = legal.find(m => m.to === to);
     if (!match) return false;
 
+    // Captured BEFORE the move: this is what we grade against. Only a
+    // genuine "player" node (in-book, your turn) is gradeable -- off-book
+    // hotseat moves have no tree data and aren't scored (that's Phase 5's
+    // job, once Stockfish can evaluate arbitrary positions).
+    const preNode = !state.offBook ? nodeAt(state.pathUci) : null;
+
     const promotion = match.promotion ? 'q' : undefined;
     const result = state.chess.move({ from, to, promotion });
     if (!result) return false;
 
     state.pathUci = [...state.pathUci, result.lan];
     state.selectedSquare = null;
+
+    if (preNode && preNode.role === 'player') gradeMove(preNode, result.lan);
+
     renderBoard(from, to);
     advance();
     return true;
+  }
+
+  /** Ranks the played move against a player node's book list and scores it.
+   *  Not found in the list -> 0 points; this is the same condition that will
+   *  send the game off-book on the very next lookup, so nothing extra needs
+   *  flagging here beyond the feedback message itself. */
+  function gradeMove(node, uci) {
+    const idx = node.moves.findIndex(m => m.uci === uci);
+    const found = idx !== -1 && idx < RANK_POINTS.length;
+    const points = found ? RANK_POINTS[idx] : 0;
+    const best = node.moves[0];
+
+    state.score.totalPoints += points;
+    state.score.gradedMoves += 1;
+    renderScore();
+
+    if (found) {
+      const pct = Math.round(node.moves[idx].freq * 100);
+      feedbackEl.className = 'chess-feedback ' + (idx === 0 ? 'feedback-best' : 'feedback-partial');
+      feedbackEl.textContent = idx === 0
+        ? `✓ best move (+${points}) — played in ${pct}% of games here`
+        : `✓ ${RANK_LABEL[idx]} (+${points}) — played in ${pct}% of games here`;
+    } else {
+      const bestPct = Math.round(best.freq * 100);
+      feedbackEl.className = 'chess-feedback feedback-miss';
+      feedbackEl.textContent = `not a tracked continuation (+0) — the book move here was ${best.san} (${bestPct}% of games)`;
+    }
+  }
+
+  function renderScore() {
+    const { totalPoints, gradedMoves } = state.score;
+    if (!gradedMoves) { scoreEl.textContent = ''; return; }
+    const avg = Math.round(totalPoints / gradedMoves);
+    scoreEl.textContent = `${totalPoints} pts across ${gradedMoves} book move${gradedMoves === 1 ? '' : 's'} — ${avg}% average`;
   }
 
   // ------------------------------------------------------------------

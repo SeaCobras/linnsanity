@@ -473,6 +473,25 @@ footer {
 .chess-status.player-turn { color: var(--accent); }
 .chess-status.off-book { color: #ff9955; }
 
+.chess-feedback {
+  text-align: center;
+  font-size: 0.9rem;
+  min-height: 1.3em;
+  margin-bottom: 1rem;
+}
+
+.chess-feedback.feedback-best { color: var(--accent); }
+.chess-feedback.feedback-partial { color: #e0c04a; }
+.chess-feedback.feedback-miss { color: #ff9955; }
+.chess-feedback.feedback-bot { color: var(--text-dim); }
+
+.chess-score {
+  text-align: center;
+  color: var(--text-dim);
+  font-size: 0.85rem;
+  margin-top: 0.75rem;
+}
+
 .chess-board-wrapper {
   display: flex;
   justify-content: center;
